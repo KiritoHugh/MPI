@@ -19,6 +19,30 @@ def findMedianSortedArrays( nums1, nums2):
         else:
             return (nums2[Len//2-1]+nums2[Len//2])/2
     # there is no posibility that double empty
+    while i1 <= j1: 
+        L1 = (i1 + j1)//2 # exact or before index
+        L2 = Len//2 - L1
+        if L2 >= Len2:
+            if i1 != L1:
+                i1 = L1
+            else:
+                i1 = L1+1
+            continue
+        L1end = nums1[L1-1]
+        R1start = nums1[L1]
+        L2end = nums2[L2-1]  # ?
+        R2start = nums2[L2]
+        if L1end >= R2start and L2end >= R1start:
+                if odd == 1:
+                    return max(R1start, R2start)
+                else:
+                    return (min(L1end, L2end)+max(R1start, R2start))/2
+        elif L1end >= R2start and L2end < R1start:
+                i1 = L1
+        elif L1end < R2start and L2end >= R1start:
+                j1 = L1
+        else:
+            print('impossible')
 
     if Len1 <= Len/2:
             L2 = Len//2 - Len1
@@ -42,30 +66,7 @@ def findMedianSortedArrays( nums1, nums2):
                     # finally:
                     #     tmp = nums2[-1]
                 return (min(nums1[0],tmp)+nums2[Len2-L2-1])/2    
-    while i1<=j1:
-        L1 = (i1 + j1)//2
-        L2 = Len//2 - L1
-        if L2>=Len2:
-            if i1!=L1:
-                i1 = L1
-            else:
-                i1 = L1+1
-            continue
-        L1end = nums1[L1-1]
-        R1start = nums1[L1]
-        L2end = nums2[L2-1]#?
-        R2start = nums2[L2]
-        if L1end>=R2start and L2end>=R1start:
-                if odd == 1:
-                    return max(R1start,R2start)
-                else:
-                    return (min(L1end,L2end)+max(R1start,R2start))/2
-        elif L1end>=R2start and L2end<R1start:
-                i1 = L1
-        elif L1end<R2start and L2end>=R1start:
-                j1 = L1
-        else:
-            print('impossible')
+ 
         # if max(R1start,R2start)<=min(L1end,L2end):
         #     if flag:
         #         return max(R1start,R2start)
